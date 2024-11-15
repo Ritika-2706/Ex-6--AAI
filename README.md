@@ -16,13 +16,54 @@ Step 5:Iterate through each word in the tokenized text.<br>
 •	For each verb , iterate through its synsets (sets of synonyms) using wordnet.synsets(word).<br>
 •	Extract synonyms and antonyms using lemma.name() and lemma.antonyms()[0].name() respectively.<br>
 •	Print the unique sets of synonyms and antonyms.
-<H3>Program:</H3>
 
-Insert your code here
+### Program:
 
-<H3>Output</H3>
+```
+# Import necessary libraries
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
 
-Show your results here
+# Download necessary NLTK data
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+# Input sentence
+sentence = input("Enter a sentence: ")
+
+# Tokenize the sentence into words
+words = word_tokenize(sentence)
+
+# Identify the parts of speech for each word
+pos_tags = nltk.pos_tag(words)
+
+# Print the parts of speech
+print("Parts of Speech Tags:")
+for word, tag in pos_tags:
+    print(f"{word}: {tag}")
+
+# Identify synonyms and antonyms for each word
+synonyms = []
+antonyms = []
+
+for word in words:
+    for syn in wordnet.synsets(word):
+        for lemma in syn.lemmas():
+            synonyms.append(lemma.name())
+            if lemma.antonyms():
+                antonyms.append(lemma.antonyms()[0].name())
+
+# Print the synonyms and antonyms
+print("\nSynonyms:", set(synonyms))
+print("Antonyms:", set(antonyms))
+```
+
+### Output</H3>
+
+![image](https://github.com/user-attachments/assets/4e4de9ed-c92b-4b5d-9239-66f9d28c301a)
+
 
 <H3>Result:</H3>
 Thus ,the program to perform the Parts of Speech identification and Synonymis executed sucessfully.
